@@ -4,15 +4,10 @@ metadata:
   name: posts-srv
 spec:
   type: NodePort
-  # selector matches based on label set in deployment yaml
   selector:
     app: posts
-  # expose ports based on index.js file
   ports:
-    # name is mostly for logging, can be anything
     - name: posts
       protocol: TCP
-      # port is the port of the Node Port Service that is being created, redirects to targetPort
       port: 4000
-      # targetPort is port that the container is listening on
       targetPort: 4000

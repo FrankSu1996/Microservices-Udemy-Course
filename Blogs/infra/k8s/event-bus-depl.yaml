@@ -1,4 +1,3 @@
-# config for deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,10 +15,7 @@ spec:
       containers:
         - name: event-bus
           image: franksu1996/event-bus
-
-# triple dash allows us to create multiple objects within single yaml file
 ---
-# config for clusterIp service
 apiVersion: v1
 kind: Service
 metadata:
@@ -27,7 +23,6 @@ metadata:
 spec:
   selector:
     app: event-bus
-  type: ClusterIP
   ports:
     - name: event-bus
       protocol: TCP
