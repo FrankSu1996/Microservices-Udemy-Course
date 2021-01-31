@@ -13,10 +13,6 @@ let colors: string[] = ["red", "green", "blue"];
 let myNumbers: number[] = [1, 2, 3];
 let truths: boolean[] = [true, true, false];
 
-// Classes
-class Car {}
-let car: Car = new Car();
-
 // Object literal, define object properties in curly braces
 let point: { x: number; y: number } = {
   x: 10,
