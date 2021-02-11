@@ -35,6 +35,16 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// define toJson to normalize json response
+userSchema.set("toJSON", {
+  transform(doc: any, ret: any) {
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.password;
+    delete ret.__v;
+  },
+});
+
 // pre save hook whenever user is created
 userSchema.pre("save", async function (done) {
   if (this.isModified("password")) {
