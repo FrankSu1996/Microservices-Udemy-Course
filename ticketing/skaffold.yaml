@@ -18,3 +18,13 @@ build:
           # made to files outside of this selector, skaffold rebuilds image
           - src: "src/**/*.ts"
             dest: .
+    - image: franksu1996/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          # changes made to these files will get directly updated in pod, if changes
+          # made to files outside of this selector, skaffold rebuilds image
+          - src: "**/*.js"
+            dest: .
