@@ -1,13 +1,23 @@
 import { useState } from "react";
+import axios from "axios";
+import useRequest from "../../hooks/use-request";
 
-export default () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { doRequest, errors } = useRequest({
+    url: "/api/users/signup",
+    method: "post",
+    body: {
+      email,
+      password,
+    },
+  });
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(email, password);
+    doRequest();
   };
 
   return (
@@ -39,14 +49,13 @@ export default () => {
                   required="required"
                 ></input>
               </div>
-              <div className="form-group">
-                <button
-                  type="submit"
-                  className="btn btn-primary btn-block btn-lg"
-                >
-                  Sign In
-                </button>
-              </div>
+              {errors}
+              <button
+                type="submit"
+                className="btn btn-primary btn-block btn-lg"
+              >
+                Sign Un
+              </button>
               <p className="hint-text">
                 <a href="#">Forgot Password?</a>
               </p>
@@ -57,3 +66,5 @@ export default () => {
     </div>
   );
 };
+
+export default Signup;
