@@ -1,12 +1,11 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 
 interface UserPayload {
   id: string;
   email: string;
 }
 
-// tell TS that request has an property called currentUser
 declare global {
   namespace Express {
     interface Request {
@@ -29,7 +28,6 @@ export const currentUser = (
       req.session.jwt,
       process.env.JWT_KEY!
     ) as UserPayload;
-
     req.currentUser = payload;
   } catch (err) {}
 

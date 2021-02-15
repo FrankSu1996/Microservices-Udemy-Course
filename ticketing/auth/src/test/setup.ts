@@ -1,9 +1,8 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
-import mongoose from "mongoose";
-import { app } from "../app";
-import request from "supertest";
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongoose from 'mongoose';
+import request from 'supertest';
+import { app } from '../app';
 
-// make sure TS knows global object has signUp property
 declare global {
   namespace NodeJS {
     interface Global {
@@ -13,16 +12,16 @@ declare global {
 }
 
 let mongo: any;
-
 beforeAll(async () => {
-  // set environment variable
-  process.env.JWT_KEY = "asdfdsafd";
+  process.env.JWT_KEY = 'asdfasdf';
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
 
   await mongoose.connect(mongoUri, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
   });
 });
 
@@ -40,15 +39,18 @@ afterAll(async () => {
 });
 
 global.signin = async () => {
-  const email = "test@test.com";
-  const password = "password";
+  const email = 'test@test.com';
+  const password = 'password';
 
   const response = await request(app)
-    .post("/api/users/signup")
-    .send({ email, password })
+    .post('/api/users/signup')
+    .send({
+      email,
+      password
+    })
     .expect(201);
 
-  const cookie = response.get("Set-Cookie");
+  const cookie = response.get('Set-Cookie');
 
   return cookie;
 };

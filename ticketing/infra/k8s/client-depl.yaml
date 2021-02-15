@@ -15,7 +15,6 @@ spec:
       containers:
         - name: client
           image: franksu1996/client
-
 ---
 apiVersion: v1
 kind: Service

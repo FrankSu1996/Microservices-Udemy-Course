@@ -1,73 +1,48 @@
-import { useState } from "react";
-import Router from "next/router";
-import { useRequest } from "../../hooks/use-request";
+import { useState, useEffect } from 'react';
+import Router from 'next/router';
+import useRequest from '../../hooks/use-request';
 
-const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { doRequest, errors } = useRequest({
-    url: "/api/users/signup",
-    method: "post",
+    url: '/api/users/signup',
+    method: 'post',
     body: {
       email,
-      password,
+      password
     },
-    onSuccess: () => {
-      Router.push("/");
-    },
+    onSuccess: () => Router.push('/')
   });
 
-  const onSubmit = async (event) => {
+  const onSubmit = async event => {
     event.preventDefault();
 
     await doRequest();
   };
 
   return (
-    <div id="myModal" className="Container">
-      <div className="modal-dialog modal-login">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title">Sign In</h4>
-          </div>
-          <div className="modal-body">
-            <form onSubmit={onSubmit}>
-              <div className="form-group">
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="text"
-                  className="form-control"
-                  placeholder="Email"
-                  required="required"
-                ></input>
-              </div>
-              <div className="form-group">
-                <input
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  required="required"
-                ></input>
-              </div>
-              {errors}
-              <button
-                type="submit"
-                className="btn btn-primary btn-block btn-lg"
-              >
-                Sign Un
-              </button>
-              <p className="hint-text">
-                <a href="#">Forgot Password?</a>
-              </p>
-            </form>
-          </div>
-        </div>
+    <form onSubmit={onSubmit}>
+      <h1>Sign Up</h1>
+      <div className="form-group">
+        <label>Email Address</label>
+        <input
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          className="form-control"
+        />
       </div>
-    </div>
+      <div className="form-group">
+        <label>Password</label>
+        <input
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          type="password"
+          className="form-control"
+        />
+      </div>
+      {errors}
+      <button className="btn btn-primary">Sign Up</button>
+    </form>
   );
 };
-
-export default Signup;
