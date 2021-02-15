@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const LandingPage = ({ currentUser }) => {
   // console.log(currentUser);
@@ -9,13 +9,13 @@ const LandingPage = ({ currentUser }) => {
 };
 
 LandingPage.getInitialProps = async ({ req }) => {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     // we are on the server!
     // requests should be made to http://ingress-nginx.ingress-nginx...laksdjfk
     const { data } = await axios.get(
-      'http://ingress-nginx.ingress-nginx.svc.cluster.local/api/users/currentuser',
+      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
       {
-        headers: req.headers
+        headers: req.headers,
       }
     );
 
@@ -23,7 +23,7 @@ LandingPage.getInitialProps = async ({ req }) => {
   } else {
     // we are on the browser!
     // requests can be made with a base url of ''
-    const { data } = await axios.get('/api/users/currentuser');
+    const { data } = await axios.get("/api/users/currentuser");
 
     return data;
   }
